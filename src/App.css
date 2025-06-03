@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 71, 87, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 71, 87, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #000000 100%);
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+  /* Tối ưu GPU rendering */
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+.main-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  padding: 2.5rem;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 25px;
+  border: 2px solid rgba(255, 105, 180, 0.6);
+  backdrop-filter: blur(15px);
+  box-shadow: 
+    0 0 40px rgba(255, 105, 180, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.main-title {
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6347, #ff8c00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+}
+
+.subtitle {
+  font-size: clamp(1.3rem, 4vw, 2.5rem);
+  color: #ffb6c1;
+  text-shadow: 
+    0 0 20px #ffb6c1,
+    0 0 40px rgba(255, 105, 180, 0.5);
+}
+
+@keyframes titleGlow {
+  0%, 100% { 
+    text-shadow: 0 0 30px rgba(255, 105, 180, 0.8);
+  }
+  50% { 
+    text-shadow: 
+      0 0 40px rgba(255, 105, 180, 1),
+      0 0 60px rgba(255, 20, 147, 0.8),
+      0 0 80px rgba(255, 69, 0, 0.6);
+  }
+}
+
+
+
+/* GPU acceleration cho tất cả animations */
+div[style*="position: absolute"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 2rem;
+    margin: 1rem;
+  }
+  
+  /* Giảm số lượng trên mobile */
+  div[style*="fontSize"] {
+    font-size: 12px !important;
+  }
+}
+
+/* Performance optimizations */
+.app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  animation: backgroundPulse 8s ease-in-out infinite;
+  z-index: 0;
+}
+
